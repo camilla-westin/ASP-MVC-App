@@ -29,3 +29,4 @@
 /Users/camillawestin/Development/ASP-MVC-App/obj/Debug/netcoreapp2.2/ASP-MVC-App.pdb
 /Users/camillawestin/Development/ASP-MVC-App/obj/Debug/netcoreapp2.2/ASP-MVC-App.csproj.CopyComplete
 /Users/camillawestin/Development/ASP-MVC-App/obj/Debug/netcoreapp2.2/Razor/Views/HelloWorld/Index.g.cshtml.cs
+/Users/camillawestin/Development/ASP-MVC-App/obj/Debug/netcoreapp2.2/Razor/Views/HelloWorld/Welcome.g.cshtml.cs

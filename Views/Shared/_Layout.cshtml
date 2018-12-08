@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="FindDistance" asp-action="Index">Find distance</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -69,9 +72,10 @@
                 crossorigin="anonymous"
                 integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
         </script>
-    </environment>
+    </environment>   
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEB60Mt_ioxIs6Wgg02R7AnXcEdeB4ysk&v=3.exp"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="~/js/googlemaps.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
