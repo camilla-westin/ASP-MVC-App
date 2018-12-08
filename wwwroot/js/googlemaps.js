@@ -4,6 +4,7 @@ document.getElementById("address-form").addEventListener('submit', functSubmit);
 function functSubmit(event) {
     var address = document.getElementById("address").value.toString();
     console.log(address); 
+    calculateDistance();
 }
 
 var ouroffice = new google.maps.LatLng(59.326180, 18.072990);
@@ -29,8 +30,9 @@ function callback(response, status) {
     if (status == 'OK') {
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
-        var outputDiv = document.getElementById('result');
-        outputDiv.innerHTML = ' ';
+        var resultItem = document.createElement("li");
+        resultItem.innerHTML = '';
+        document.getElementById("result-list").appendChild(resultItem);
     
         for (var i = 0; i < origins.length; i++) {
           var results = response.rows[i].elements;
@@ -42,12 +44,7 @@ function callback(response, status) {
             var to = destinations[j];           
           }
         }
-        outputDiv.innerHTML += 'From ' + from + ' to ' + to + ' it is ' + distance;
+        resultItem.innerHTML += 'From ' + from + ' to ' + to + ' it is ' + distance;
     }
 }
-
-button.addEventListener('click', function(event) {
-  calculateDistance();
-}, true);
-
 
