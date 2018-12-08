@@ -10,8 +10,7 @@ function functSubmit(event) {
 var ouroffice = new google.maps.LatLng(59.326180, 18.072990);
 var origin2 = 'Slottsbacken 6';
 var destinationA = 'Stockholm, Sweden';
-var destinationB = new google.maps.LatLng(59.334591, 18.063240);
-var button = document.getElementById('searchbutton');
+var destinationB = new google.maps.LatLng(59.334591, 18.063240); // Ny latlong från ny adress
 
 function calculateDistance() {
   var service = new google.maps.DistanceMatrixService();
@@ -20,9 +19,7 @@ function calculateDistance() {
       origins: [ouroffice, origin2],
       destinations: [destinationA, destinationB],
       travelMode: google.maps.TravelMode.WALKING,
-      unitSystem: google.maps.UnitSystem.METRIC,
-      avoidHighways: false,
-      avoidTolls: false
+      unitSystem: google.maps.UnitSystem.METRIC
     }, callback);
 }
 
@@ -48,3 +45,9 @@ function callback(response, status) {
     }
 }
 
+//To do:
+// Få ut long och lat från adress Geocode
+// Sortera resultat efter längd på sträcka
+// Byta ut namn på HelloWorld sidor
+// Sök på bolag ska ge en adress
+// Städa bort skrot i styling (Göm meny osv)
