@@ -107,3 +107,14 @@ html, body {
   font-size: 13px;
   font-weight: 300;
 }
+
+#address {
+  width: 700px;
+  height: 130px;
+  border-radius: 100px;
+  padding: 40px 40px 49px 40px;
+  border: 2px solid #000;
+  font-size: 70px;
+  line-height: 80px;
+  margin: 40px auto;
+}

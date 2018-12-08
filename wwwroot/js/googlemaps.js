@@ -1,3 +1,11 @@
+
+document.getElementById("address-form").addEventListener('submit', functSubmit);
+
+function functSubmit(event) {
+    var address = document.getElementById("address").value.toString();
+    console.log(address); 
+}
+
 var ouroffice = new google.maps.LatLng(59.326180, 18.072990);
 var origin2 = 'Slottsbacken 6';
 var destinationA = 'Stockholm, Sweden';
