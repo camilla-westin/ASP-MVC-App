@@ -1,23 +1,32 @@
+var geocoder;
+geocoder = new google.maps.Geocoder();
+var ouroffice = new google.maps.LatLng(59.326180, 18.072990);
+var ourcompany = 'Slottsbacken 6';
+var destinationA = 'Stockholm, Sweden';
 
 document.getElementById("address-form").addEventListener('submit', functSubmit);
 
 function functSubmit(event) {
     var address = document.getElementById("address").value.toString();
-    console.log(address); 
-    calculateDistance();
+
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == 'OK') {
+            var newLat = results[0].geometry.location.lat();
+            var newLng = results[0].geometry.location.lng();
+            var destinationB = new google.maps.LatLng(newLat, newLng);  
+            calculateDistance(destinationB); 
+        } else {
+            alert('Please enter another address: ' + status);
+        }
+    });   
 }
 
-var ouroffice = new google.maps.LatLng(59.326180, 18.072990);
-var origin2 = 'Slottsbacken 6';
-var destinationA = 'Stockholm, Sweden';
-var destinationB = new google.maps.LatLng(59.334591, 18.063240); // Ny latlong från ny adress
-
-function calculateDistance() {
+function calculateDistance(newDestination) {
   var service = new google.maps.DistanceMatrixService();
   service.getDistanceMatrix(
     {
-      origins: [ouroffice, origin2],
-      destinations: [destinationA, destinationB],
+      origins: [ouroffice, ourcompany],
+      destinations: [destinationA, newDestination],
       travelMode: google.maps.TravelMode.WALKING,
       unitSystem: google.maps.UnitSystem.METRIC
     }, callback);
@@ -36,7 +45,6 @@ function callback(response, status) {
           for (var j = 0; j < results.length; j++)          {
             var element = results[j];
             var distance = element.distance.text;
-            var duration = element.duration.text;
             var from = origins[i];
             var to = destinations[j];           
           }
@@ -46,8 +54,7 @@ function callback(response, status) {
 }
 
 //To do:
-// Få ut long och lat från adress Geocode
 // Sortera resultat efter längd på sträcka
+// Skriv instruktioner för att starta app
 // Byta ut namn på HelloWorld sidor
-// Sök på bolag ska ge en adress
 // Städa bort skrot i styling (Göm meny osv)
