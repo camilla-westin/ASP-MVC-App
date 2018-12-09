@@ -1,22 +1,25 @@
 var geocoder;
 geocoder = new google.maps.Geocoder();
 var ouroffice = new google.maps.LatLng(59.326180, 18.072990);
-var ourcompany = 'Slottsbacken 6';
+var companyname = 'Ted & Gustaf';
+var companyaddress = 'Slottsbacken 6';
 var destinationA = 'Stockholm, Sweden';
+var resultsArray = [];
 
 document.getElementById("address-form").addEventListener('submit', functSubmit);
 
 function functSubmit(event) {
     var address = document.getElementById("address").value.toString();
 
-    geocoder.geocode( { 'address': address}, function(results, status) {
+    geocoder.geocode( { 'address': address}, function(results, status) { 
         if (status == 'OK') {
             var newLat = results[0].geometry.location.lat();
             var newLng = results[0].geometry.location.lng();
             var destinationB = new google.maps.LatLng(newLat, newLng);  
             calculateDistance(destinationB); 
         } else {
-            alert('Please enter another address: ' + status);
+            alert('Please enter another address.');
+            console.log(status);
         }
     });   
 }
@@ -25,7 +28,7 @@ function calculateDistance(newDestination) {
   var service = new google.maps.DistanceMatrixService();
   service.getDistanceMatrix(
     {
-      origins: [ouroffice, ourcompany],
+      origins: [ouroffice, companyaddress],
       destinations: [destinationA, newDestination],
       travelMode: google.maps.TravelMode.WALKING,
       unitSystem: google.maps.UnitSystem.METRIC
@@ -49,7 +52,23 @@ function callback(response, status) {
             var to = destinations[j];           
           }
         }
-        resultItem.innerHTML += 'From ' + from + ' to ' + to + ' it is ' + distance;
+
+        var object = {
+            element: element,
+            distance: distance,
+            from: from,
+            to: to,
+        }
+
+        resultItem.innerHTML += 'From ' + companyname + ' ' + object.from + ' to ' + object.to + ' it is ' + object.distance;  
+
+        resultsArray.push(object);
+
+        console.log(resultsArray);
+    
+        
+    } else {
+        //Nothing
     }
 }
 
