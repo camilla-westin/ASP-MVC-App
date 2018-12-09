@@ -5,16 +5,20 @@ var companyaddress = 'Slottsbacken 6';
 var destinationA = 'Stockholm, Sweden';
 var resultsArray = [];
 
-document.getElementById("address-form").addEventListener('submit', functSubmit);
-
 function functSubmit(event) {
+    // Get value from form and store to variable
     var address = document.getElementById("address").value.toString();
 
+    // Get information about address from google maps geocode api
     geocoder.geocode( { 'address': address}, function(results, status) { 
         if (status == 'OK') {
+            //Get latitude and longitude from address and store in variables
             var newLat = results[0].geometry.location.lat();
             var newLng = results[0].geometry.location.lng();
+
+            // Update destinationB variable with new lat lng information
             var destinationB = new google.maps.LatLng(newLat, newLng);  
+
             calculateDistance(destinationB); 
         } else {
             alert('Please enter another address.');
@@ -23,6 +27,7 @@ function functSubmit(event) {
     });   
 }
 
+// Get distance information about new destination from google maps Distance Matrix api
 function calculateDistance(newDestination) {
   var service = new google.maps.DistanceMatrixService();
   service.getDistanceMatrix(
@@ -51,22 +56,26 @@ function callback(response, status) {
           }
         }
 
+        // Create new object with information everytime user submits new address
         var gmObject = {
             element: element,
-            distanceInt: parseInt(distance), //Här vill man få med decimaler för en mer exakt sortering
+            distanceInt: parseInt(distance), //TODO: Här vill man få med decimaler för en mer exakt sortering
             distance: distance,
             from: from,
             to: to
         }
 
+        //Push new object in to array
         resultsArray.push(gmObject);
 
+        //Function to display all results in the array
         function displayResultList(resultsArray) {
             resultsArray.forEach(function (gmObject) {
                 resultItem.innerHTML += '<li><span class="highlight">From:</span> ' + companyname + ' ' + gmObject.from + '<br /><span class="highlight">To:</span> ' + gmObject.to + '<br /><br /> <span class="highlight">Walking distance:</span> ' + '<strong>' + gmObject.distance + '</strong></li>';
             });
         }
 
+        //Sort objects by distance in ascending order
         resultsArray.sort(function (x, y) {
             return x.distanceInt - y.distanceInt;
         });
@@ -77,3 +86,6 @@ function callback(response, status) {
         console.log(status);
     }
 }
+
+//Call submit function on button click
+document.getElementById("address-form").addEventListener('submit', functSubmit);
