@@ -60,7 +60,7 @@ function callback(response, status) {
             to: to,
         }
 
-        resultItem.innerHTML += 'From ' + companyname + ' ' + object.from + ' to ' + object.to + ' it is ' + object.distance;  
+        resultItem.innerHTML += '<span class="highlight">From:</span> ' + companyname + ' ' + object.from + '<br /><span class="highlight">To:</span> ' + object.to + '<br /><br /> <span class="highlight">Walking distance:</span> ' + '<strong>' + object.distance + '</strong>';  
 
         resultsArray.push(object);
 
