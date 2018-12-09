@@ -1,5 +1,4 @@
-var geocoder;
-geocoder = new google.maps.Geocoder();
+var geocoder = new google.maps.Geocoder();
 var ouroffice = new google.maps.LatLng(59.326180, 18.072990);
 var companyname = 'Ted & Gustaf';
 var companyaddress = 'Slottsbacken 6';
@@ -39,9 +38,8 @@ function callback(response, status) {
     if (status == 'OK') {
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
-        var resultItem = document.createElement("li");
+        var resultItem = document.getElementById("result-list");
         resultItem.innerHTML = '';
-        document.getElementById("result-list").appendChild(resultItem);
     
         for (var i = 0; i < origins.length; i++) {
           var results = response.rows[i].elements;
@@ -53,27 +51,29 @@ function callback(response, status) {
           }
         }
 
-        var object = {
+        var gmObject = {
             element: element,
+            distanceInt: parseInt(distance), //Här vill man få med decimaler för en mer exakt sortering
             distance: distance,
             from: from,
-            to: to,
+            to: to
         }
 
-        resultItem.innerHTML += '<span class="highlight">From:</span> ' + companyname + ' ' + object.from + '<br /><span class="highlight">To:</span> ' + object.to + '<br /><br /> <span class="highlight">Walking distance:</span> ' + '<strong>' + object.distance + '</strong>';  
+        resultsArray.push(gmObject);
 
-        resultsArray.push(object);
+        function displayResultList(resultsArray) {
+            resultsArray.forEach(function (gmObject) {
+                resultItem.innerHTML += '<li><span class="highlight">From:</span> ' + companyname + ' ' + gmObject.from + '<br /><span class="highlight">To:</span> ' + gmObject.to + '<br /><br /> <span class="highlight">Walking distance:</span> ' + '<strong>' + gmObject.distance + '</strong></li>';
+            });
+        }
 
-        console.log(resultsArray);
-    
-        
+        resultsArray.sort(function (x, y) {
+            return x.distanceInt - y.distanceInt;
+        });
+
+        displayResultList(resultsArray);
+
     } else {
-        //Nothing
+        console.log(status);
     }
 }
-
-//To do:
-// Sortera resultat efter längd på sträcka
-// Skriv instruktioner för att starta app
-// Byta ut namn på HelloWorld sidor
-// Städa bort skrot i styling (Göm meny osv)
