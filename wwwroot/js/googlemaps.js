@@ -1,7 +1,7 @@
 var geocoder = new google.maps.Geocoder();
-var ouroffice = new google.maps.LatLng(59.326180, 18.072990);
-var companyname = 'Ted & Gustaf';
-var companyaddress = 'Slottsbacken 6';
+var ouroffice = new google.maps.LatLng(59.334798, 18.0628005);
+var companyname = 'Comprend';
+var companyaddress = 'Sveavägen 20';
 var destinationA = 'Stockholm, Sweden';
 var resultsArray = [];
 
